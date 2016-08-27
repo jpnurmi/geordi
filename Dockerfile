@@ -18,6 +18,12 @@ RUN cabal update && cabal install --global cabal-install
 RUN cabal install --global --reorder-goals --allow-newer=process process deepseq mtl syb utf8-string network containers readline parsec Diff regex-compat base-unicode-symbols setops streams semigroups regex-posix template-haskell transformers pointed distributive comonad contravariant profunctors semigroupoids irc setlocale snap
 # (We could rely on the list in geordi.cabal, but having these here shortens the development cycle when I'm testing changes in geordi.)
 
+RUN apt-get update
+RUN apt-get build-dep -y qt5-default
+RUN apt-get install -y libxinerama-dev libxcb-xinerama0-dev
+COPY install-qt5 /geordi/src/
+RUN /geordi/src/install-qt5
+
 COPY src /geordi/src
 RUN cabal install --global /geordi/src --prefix=/usr
 
