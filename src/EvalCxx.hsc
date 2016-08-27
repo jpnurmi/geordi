@@ -228,7 +228,8 @@ evaluate cfg Request{..} extra_env = do
         Link → ((++ ".o") . fst . namedUnits) ++
           ["-o", "t"
           , "-Wl,--rpath,/usr/local/lib64", "-Wl,--undefined,geordi_init"
-          , "-lgeordi_prelude-" ++ stdDigits standard, "-lmcheck", "-lubsan", "-lstdc++fs", "-lpthread", "-save-temps"]
+          , "-lgeordi_prelude-" ++ stdDigits standard, "-lmcheck", "-lubsan", "-lstdc++fs", "-lpthread", "-save-temps"
+          , "-lpthread", "-Wl,--rpath,/usr/local/qt5/lib", "-L/usr/local/qt5/lib", "-lQt5Core", "-lQt5Gui"]
       where
         compileFlags = ["-w" | no_warn] ++
           if clang

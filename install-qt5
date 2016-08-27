@@ -1,0 +1,11 @@
+#!/bin/bash
+set -euv
+
+git clone --branch dev git://code.qt.io/qt/qtbase.git /geordi/src/qtbase
+cd /geordi/src/qtbase
+export CXX=/usr/local/bin/g++
+export LD_LIBRARY_PATH=/usr/local/lib64
+g++ --version
+./configure -prefix /usr/local/qt5 -opensource -confirm-license -no-widgets -nomake tests -nomake examples
+make -j2
+make install

@@ -75,6 +75,9 @@
 #include <cwchar>
 #include <cwctype>
 
+#include <QtCore/QtCore>
+#include <QtGui/QtGui>
+
 #if __cplusplus >= 201103
   #include <atomic>
   #include <codecvt>

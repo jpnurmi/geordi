@@ -1,9 +1,9 @@
 FROM ubuntu:16.04
 RUN apt-get update && apt-get install -y libreadline-dev libboost-dev build-essential libgmp-dev pkg-config libseccomp-dev software-properties-common subversion libmpfr-dev libmpc-dev flex zlib1g-dev git libedit-dev ncurses-dev cmake bison libcap-dev python wget
 
-COPY llvm-no-temp-files.patch /geordi/src/
-COPY install-clang /geordi/src/
-RUN /geordi/src/install-clang
+#COPY llvm-no-temp-files.patch /geordi/src/
+#COPY install-clang /geordi/src/
+#RUN /geordi/src/install-clang
 
 #COPY install-klee /geordi/src/
 #RUN /geordi/src/install-klee
@@ -17,6 +17,12 @@ RUN /geordi/src/install-gcc-trunk
 RUN cabal update && cabal install --global cabal-install
 RUN cabal install --global --reorder-goals --allow-newer=process filepath process deepseq mtl syb utf8-string network containers readline parsec Diff directory regex-compat base-unicode-symbols setops streams semigroups regex-posix template-haskell transformers pointed distributive comonad contravariant profunctors semigroupoids irc setlocale snap
 # (We could rely on the list in geordi.cabal, but having these here shortens the development cycle when I'm testing changes in geordi.)
+
+RUN apt-get update
+RUN apt-get build-dep -y qt5-default
+RUN apt-get install -y libxinerama-dev libxcb-xinerama0-dev
+COPY install-qt5 /geordi/src/
+RUN /geordi/src/install-qt5
 
 COPY src /geordi/src
 RUN rm -rf /geordi/src/dist; cabal install --global /geordi/src --prefix=/usr
