@@ -1,0 +1,12 @@
+#!/bin/bash
+set -euv
+
+git clone --depth 1 --branch statx https://github.com/jpnurmi/qtbase.git /geordi/src/qtbase
+cd /geordi/src/qtbase
+echo "QMAKE_CXXFLAGS += -Wno-class-memaccess" >> mkspecs/linux-g++/qmake.conf
+export CXX=/usr/local/bin/g++
+export LD_LIBRARY_PATH=/usr/local/lib64
+g++ --version
+./configure -no-feature-statx -prefix /usr/local/qt5 -opensource -confirm-license -no-feature-dbus -no-feature-network -no-feature-sql -no-feature-testlib -no-feature-widgets -no-feature-xml -nomake tests -nomake examples -nomake tools
+make -j2
+make install
