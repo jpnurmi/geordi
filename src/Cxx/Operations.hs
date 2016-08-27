@@ -40,8 +40,8 @@ gen left middle right
 
 generateMain :: AbbreviatedMain → TString
 generateMain (Block c) = gen int_main ("{" ++ show c ++ "}") ""
-generateMain (Call c) = gen (int_main ++ "{printf") (show c) "\n;}"
-generateMain (Print c) = gen (int_main ++ "{::std::cout") ("<<" ++ show c) "\n;}"
+generateMain (Call c) = gen (int_main ++ "{qDebug") (show c) "\n;}"
+generateMain (Print c) = gen (int_main ++ "{qDebug()") ("<<" ++ show c) "\n;}"
   -- The newlines make //-style comments work.
 
 cstyle_comments :: Code → Code

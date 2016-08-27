@@ -232,7 +232,8 @@ evaluate cfg Request{..} extra_env = do
           , "-Wl,--rpath,/usr/local/" ++ (if clang then "lib" else "lib64")
           , "-Wl,--undefined,geordi_init"
           , "-rdynamic"
-          , "-lgeordi_prelude-" ++ stdDigits standard, "-lmcheck", "-lubsan", "-lstdc++fs", "-lpthread", "-save-temps", "-ldl"] ++
+          , "-lgeordi_prelude-" ++ stdDigits standard, "-lmcheck", "-lubsan", "-lstdc++fs", "-lpthread", "-save-temps", "-ldl"
+          , "-lpthread", "-Wl,--rpath,/usr/local/qt5/lib", "-L/usr/local/qt5/lib", "-lQt5Core", "-lQt5Gui"] ++
           (if clang then clangLinkFlags else [])
       where
         clangLinkFlags = ["-fsanitize=undefined", "-lc++"]

@@ -18,6 +18,10 @@ RUN cabal update && cabal --ghc-option="-optl-no-pie" install --global cabal-ins
 RUN cabal update && cabal --ghc-option="-optl-no-pie" install --global --reorder-goals --allow-newer=process bytestring text deepseq mtl syb utf8-string network containers readline parsec Diff regex-compat base-unicode-symbols setops streams semigroups regex-posix template-haskell transformers pointed distributive comonad contravariant profunctors semigroupoids irc setlocale HTTP
 # (We could rely on the list in geordi.cabal, but having these here shortens the development cycle when I'm testing changes in geordi.)
 
+RUN apt-get install -y libxinerama-dev libxcb-xinerama0-dev libglu1-mesa-dev
+COPY install-qt5 /geordi/src/
+RUN /geordi/src/install-qt5
+
 COPY src /geordi/src
 RUN cabal --ghc-option="-optl-no-pie" install --global /geordi/src --prefix=/usr
 
