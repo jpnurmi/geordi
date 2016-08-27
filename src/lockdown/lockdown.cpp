@@ -47,6 +47,7 @@ auto rules =
 	, RULE(clock_gettime,   ALLOW)
 	, RULE(exit,            ALLOW)
 	, RULE(sched_yield,     ALLOW)
+	, RULE(clock_getres,    ALLOW)
 	, RULE(lstat,           ERRNO(-1))
 	, RULE(geteuid,         ERRNO(-1))
 	, RULE(gettid,          ERRNO(-1))
